@@ -1,30 +1,12 @@
 import numpy as np
 from keras.preprocessing import image
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten, Dense
+from keras.models import load_model
 
 
-class HES_Model:
-    def __init__(self, weights='weights.hdf5'):
-        self.model = None
-        self.weights = weights
+class Model:
+    def __init__(self):
+        self.model = load_model('HEE/model.h5')
         self.chars = ['*', '+', '-', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '(', ')']
-        self.initialize_model()
-
-    def initialize_model(self):
-        self.model = Sequential()
-        self.model.add(Conv2D(30, (5, 5), input_shape=(28, 28, 1), activation='relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Conv2D(15, (5, 5), activation='relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Dropout(0.3))
-        self.model.add(Flatten())
-        self.model.add(Dense(128, activation='relu'))
-        self.model.add(Dense(64, activation='relu'))
-        self.model.add(Dense(16, activation='softmax'))
-
-        self.model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
-        self.model.load_weights(self.weights)
 
     def predict_equation(self, image_list):
         for i in range(len(image_list)):
@@ -64,7 +46,7 @@ def apply_operation(a, b, operator):
         return a - b
 
 
-def evaluate(equation):
+def solve_equation(equation):
     operators = []
     operands = []
     i = 0

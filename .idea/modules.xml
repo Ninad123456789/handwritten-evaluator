@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ML Project.iml" filepath="$PROJECT_DIR$/.idea/ML Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Handwritten Expression Evaluator.iml" filepath="$PROJECT_DIR$/.idea/Handwritten Expression Evaluator.iml" />
     </modules>
   </component>
 </project>
