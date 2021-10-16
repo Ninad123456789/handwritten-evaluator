@@ -36,25 +36,27 @@
     </div>
 
     {% else %}
-    <img src="{{image_path}}" class="rounded mx-auto d-block" alt="Image can't be loaded" style="height:200px;">
+    <div class="text-center">
+        <img src="{{image_path}}" class="rounded mx-auto d-block" alt="Image can't be loaded" style="height:200px;">
+    </div>
 
     {% if result|length > 1 %}
-        {% if result.startswith('Error') %}
-            <div class="alert alert-danger gap-2 col-10 mx-auto my-4" align="left" role="alert">
-                <h5> Detected equation :  {{equation}}</h5>
-                <p></p>
-                <h6> Result :  {{result}} </h6>
-            </div>
+    {% if result.startswith('Error') %}
+    <div class="alert alert-danger gap-2 col-10 mx-auto my-4" align="left" role="alert">
+        <h5> Detected equation : {{equation}}</h5>
+        <p></p>
+        <h6> Result : {{result}} </h6>
+    </div>
 
-        {% else %}
-            <div class="alert alert-primary gap-2 col-10 mx-auto my-4" align="center" role="alert">
+    {% else %}
+    <div class="alert alert-primary gap-2 col-10 mx-auto my-4" align="center" role="alert">
 
-                <h5> Detected equation :  {{equation}}</h5>
-                <p></p>
-                <h6> Result :  {{result}} </h6>
-            </div>
+        <h5> Detected equation : {{equation}}</h5>
+        <p></p>
+        <h6> Result : {{result}} </h6>
+    </div>
 
-        {% endif %}
+    {% endif %}
     {% endif %}
     {% endif %}
 
