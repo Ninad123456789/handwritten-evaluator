@@ -37,12 +37,16 @@ def process_image(img_path):
 
     for cnt in cnts:
         bbox = cv2.boundingRect(cnt)
-        holder.append(bbox)
+        holder.append(list(bbox))
 
     for hold in holder:
         for hold2 in holder:
             if hold != hold2:
                 area = (getIntersection(hold, hold2))
+
+                if hold2[3] < 20:
+                    hold2[3] = hold2[2]
+                    hold2[1] = hold2[1] - 20
 
                 if hold2[2] * hold2[3] < 100:
                     # noinspection PyBroadException
