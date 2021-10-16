@@ -34,11 +34,11 @@ def start():
             image_list = process_image(IMG_PATH)
 
             # Predict equation and result from model.
-            equation = '1/1' #model.predict_equation(image_list)
+            equation = model.predict_equation(image_list)
             result = str(solve_equation(equation))
 
     return render_template('app.html', image_path=IMG_PATH, equation=equation, result=result)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
