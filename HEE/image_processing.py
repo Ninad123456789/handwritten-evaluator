@@ -39,14 +39,18 @@ def process_image(img_path):
         bbox = cv2.boundingRect(cnt)
         holder.append(list(bbox))
 
+    # holder -> contours
+    # hold -> bounding reacts
+
     for hold in holder:
         for hold2 in holder:
             if hold != hold2:
                 area = (getIntersection(hold, hold2))
+                x, y, w, h = hold2
 
-                if hold2[3] < 20:
-                    hold2[3] = hold2[2]
-                    hold2[1] = hold2[1] - 20
+                if w > 2 * h:
+                    hold2[1] -= int(w / 2)
+                    hold2[3] += w + h
 
                 if hold2[2] * hold2[3] < 100:
                     # noinspection PyBroadException
@@ -97,15 +101,21 @@ def process_image(img_path):
     for hold in holder:
         # cv2.rectangle(im, (hold[0], hold[1]), (hold[0] + hold[2], hold[1] + hold[3]), (255, 0, 255), 1, cv2.LINE_AA)
         x, y, w, h = hold[0], hold[1], hold[2], hold[3]
+        x -= 4
+        y -= 4
+        w += 8
+        h += 8
         image = im[y:y + h, x:x + w]
 
         cv2.imwrite('Images/' + str(i) + '.png', image)
         img = cv2.imread('Images/' + str(i) + '.png')
         img = cv2.resize(img, (28, 28))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        ret, img = cv2.threshold(img, 165, 255, cv2.THRESH_BINARY)
         cv2.imwrite('Images/' + str(i) + '.png', img)
         img = cv2.imread('Images/' + str(i) + '.png')
-
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
         final_list.append(img)
         i += 1
     return final_list
